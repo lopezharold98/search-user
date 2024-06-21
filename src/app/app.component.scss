@@ -1,0 +1,11 @@
+/* src/app/app.component.scss */
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Color de fondo claro */
+    margin: 0;
+  }
+  
