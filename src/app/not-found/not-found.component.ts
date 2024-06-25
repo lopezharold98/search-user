@@ -32,7 +32,6 @@ export class NotFoundComponent {
   constructor() {}
 
   goBack(): void {
-    
     window.history.back();
   }
 }

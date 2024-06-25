@@ -18,7 +18,15 @@ export class ClientFormComponent {
   constructor(private fb: FormBuilder, private router: Router, private clientService: ClientService) {
     this.clientForm = this.fb.group({
       documentType: ['', Validators.required],
-      documentNumber: ['', Validators.required]
+      documentNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(11),
+          Validators.pattern('^[0-9]*$')
+        ]
+      ]
     });
   }
 
@@ -27,16 +35,13 @@ export class ClientFormComponent {
       const { documentType, documentNumber } = this.clientForm.value;
       this.clientService.getClientData(documentType, documentNumber).subscribe(
         response => {
-          if(response){
-            console.log(response)
+          if (response) {
             this.router.navigate(['/client-summary'], { state: response });
           }
-          
         },
         error => {
-          if (error.status === 404) { 
-            this.router.navigate(['/not-found']);
-          }
+          console.error('Error fetching client data', error);
+          this.router.navigate(['/not-found']);
         }
       );
     }
